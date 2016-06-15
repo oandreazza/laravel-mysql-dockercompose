@@ -21,6 +21,8 @@ services:
     container_name: db-mysql
     stdin_open: true
     tty: true
+    volumes_from:
+      - db-data
     environment:
       - CREATEDB=true 
       - MYSQL_CLIENT=172.18.%.%
@@ -28,6 +30,15 @@ services:
       - MYSQL_DB=myawesomeapp 
       - APP_USER=admin
       - APP_PASS=yummy123
-    command: /bin/bash    
+    command: /bin/bash
+
+  db-data:
+    image: appcontainers/centos
+    container_name: db-data
+    volumes:
+      - "/var/lib"
+    stdin_open: true
+    tty: true
+    command: /bin/bash   
 
     
