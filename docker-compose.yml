@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  web-laravel:
+    image: mauricioweb/laravel-env
+    container_name: laravel-blog
+    ports:
+      - 8081:80
+    volumes: 
+      - '.:/var/www/blog'
+    working_dir: '/var/www/blog'
+    links:
+      - db-mysql
+    stdin_open : true
+    tty: true
+    command: php artisan serve --host=0.0.0.0 --port=80
+
+
+  db-mysql:
+    image: appcontainers/mysql:centos
+    container_name: db-mysql
+    stdin_open: true
+    tty: true
+    environment:
+      - CREATEDB=true 
+      - MYSQL_CLIENT=172.18.%.%
+      - MYSQL_PASS=Iloveflappyjacks 
+      - MYSQL_DB=myawesomeapp 
+      - APP_USER=admin
+      - APP_PASS=yummy123
+    command: /bin/bash    
+
+    
