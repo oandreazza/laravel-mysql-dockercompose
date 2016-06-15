@@ -12,6 +12,7 @@ services:
     links:
       - db-mysql
     stdin_open : true
+    restart: always
     tty: true
     command: php artisan serve --host=0.0.0.0 --port=80
 
@@ -21,6 +22,7 @@ services:
     container_name: db-mysql
     stdin_open: true
     tty: true
+    restart: always
     volumes_from:
       - db-data
     environment:
@@ -35,6 +37,7 @@ services:
   db-data:
     image: appcontainers/centos
     container_name: db-data
+    restart: always
     volumes:
       - "/var/lib"
     stdin_open: true
